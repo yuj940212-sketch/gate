@@ -381,21 +381,17 @@ function formatLocationName(ipInfo) {
 // 测速和纯净度还是去 http://ipwho.de/json 那页看(模块的 http-response 脚本还在).
 
 function httpGetJson(url, timeoutMs) {
-  var timeout = timeoutMs || 5000;
-  if (typeof $task !== 'undefined' && $task && typeof $task.fetch === 'function') {
-    var timer = null;
-    var timeoutPromise = new Promise(function(_, reject) {
-      timer = setTimeout(function() { reject(new Error('Timeout')); }, timeout);
-    });
-    return Promise.race([$task.fetch(url, { method: 'GET', headers: { 'User-Agent': 'Surge' }, policy: 'PROXY' }), timeoutPromise])
-      .then(function(res) { clearTimeout(timer); return res.json(); })
-      .catch(function(e) { clearTimeout(timer); throw e; });
-  }
+  // 只用 Surge 最老牌的 $httpClient, 不走另一条新接口.
+  // 面板脚本里新接口在部分 Surge 版本上不可用, 那是前面两块面板一直空白最可能的原因.
+  // 这里不传策略组参数, 请求按模块规则走: ipwho.de -> PROXY, 照样是代理出口 IP.
   return new Promise(function(resolve, reject) {
-    $httpClient.get({ url: url, headers: { 'User-Agent': 'Surge' }, policy: 'PROXY', timeout: Math.max(1, Math.ceil(timeout / 1000)) }, function(err, resp, data) {
-      if (err) return reject(err);
-      try { resolve(JSON.parse(data)); } catch (e) { reject(e); }
-    });
+    $httpClient.get(
+      { url: url, headers: { 'User-Agent': 'Surge' }, timeout: Math.max(1, Math.ceil((timeoutMs || 5000) / 1000)) },
+      function(err, resp, data) {
+        if (err) return reject(err);
+        try { resolve(JSON.parse(data)); } catch (e) { reject(e); }
+      }
+    );
   });
 }
 
