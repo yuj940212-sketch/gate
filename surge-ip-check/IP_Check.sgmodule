@@ -16,3 +16,4 @@ hostname = %APPEND% 4.ipwho.de, ipwho.de
 
 [Panel]
 IP Check = script-path=https://raw.githubusercontent.com/yuj940212-sketch/gate/main/surge-ip-check/IP_Check_Panel.js, update-interval=600
+台湾 VPS = script-path=https://raw.githubusercontent.com/yuj940212-sketch/gate/main/surge-ip-check/Taiwan_VPS_Panel.js, update-interval=600
