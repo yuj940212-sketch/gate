@@ -6,7 +6,7 @@
 // 用法: 在 Surge 里先在 海外节点 组里选好要测的节点, 再用浏览器访问
 // http://ipwho.de/json (双栈) 或 https://4.ipwho.de/json (仅 IPv4),
 // 返回的就是该节点的出口 IP 信息. 测速和纯净度默认关闭, 在模块参数里改成 开启 即可.
-// 参数(模块 argument): POLICY=海外节点&SHOW_SPEED_TEST=关闭&SPEED_TEST_PACKET=3&SPEED_TEST_TIMEOUT=5&SHOW_IPPURE=关闭
+// 参数(模块 argument): POLICY=海外节点&SPEED_TEST=开启&SPEED_TEST_PACKET=3&SPEED_TEST_TIMEOUT=5&IP_PURE=开启
 
 const codeMap = { HK: '🇭🇰 香港', TW: '🇼🇸 台湾', SG: '🇸🇬 新加坡', JP: '🇯🇵 日本', KR: '🇰🇷 韩国', US: '🇺🇸 美国', DE: '🇩🇪 德国', GB: '🇬🇧 英国', NL: '🇳🇱 荷兰', FR: '🇫🇷 法国', CA: '🇨🇦 加拿大', AU: '🇦🇺 澳大利亚', TR: '🇹🇷 土耳其', MO: '🇲🇴 澳门', RU: '🇷🇺 俄罗斯' };
 
@@ -629,8 +629,8 @@ async function getIPPureInfoSurge(policy) {
         body: JSON.stringify({ error: 'IP信息解析失败', message: '原始响应体已无法安全回写' })
       });
     }
-    var showSpeedTest = isEnvOn(args.SHOW_SPEED_TEST);
-    var showIPPure = isEnvOn(args.SHOW_IPPURE);
+    var showSpeedTest = (args.SPEED_TEST !== undefined ? isEnvOn(args.SPEED_TEST) : (args.SHOW_SPEED_TEST !== undefined ? isEnvOn(args.SHOW_SPEED_TEST) : true));
+    var showIPPure = (args.IP_PURE !== undefined ? isEnvOn(args.IP_PURE) : (args.SHOW_IPPURE !== undefined ? isEnvOn(args.SHOW_IPPURE) : true));
     var speedTask = null;
     if (showSpeedTest) {
       var speedTimeoutMs = Math.floor(parsePositiveFloat(args.SPEED_TEST_TIMEOUT, 5) * 1000);
