@@ -2,6 +2,8 @@
 #!desc=IP信息展示(中文)、IP纯净度、下行测速。先在 海外节点组选好要测的节点, 再访问 http://ipwho.de/json 或 https://4.ipwho.de/json 查看该节点出口 IP。测速与纯净度默认开启, 在模块参数里可改回 关闭。面板: Surge 首页直接看出口 IP 与台湾 VPS 信息, 点面板即刷新。
 #!author=unknowntokyo(Egern 原版), Surge 移植版
 #!system=ios
+#!arguments=Proxy:海外节点
+#!arguments-desc=Proxy: 面板查 IP 用的策略组或节点, 默认 海外节点
 
 [Rule]
 DOMAIN,speed.cloudflare.com,海外节点
@@ -10,10 +12,12 @@ DOMAIN-SUFFIX,ipwho.de,海外节点
 
 [Script]
 IP Check = type=http-response,pattern=^https?://(?:4\.)?ipwho\.de(?::\d+)?(?:[/?#]|$),script-path=https://cdn.jsdelivr.net/gh/yuj940212-sketch/gate@b40c49762411d7e046c303bdca12227e2970d2f8/surge-ip-check/IP_Check.js,requires-body=true,timeout=8,argument=POLICY=海外节点&SPEED_TEST=开启&SPEED_TEST_PACKET=3&SPEED_TEST_TIMEOUT=5&IP_PURE=开启
+IP Check Panel = type=generic, timeout=10, argument=Proxy={{{Proxy}}}, script-path=https://cdn.jsdelivr.net/gh/yuj940212-sketch/gate@b40c49762411d7e046c303bdca12227e2970d2f8/surge-ip-check/IP_Check_Panel.js, script-update-interval=86400
+Taiwan VPS Panel = type=generic, timeout=10, argument=Proxy={{{Proxy}}}, script-path=https://cdn.jsdelivr.net/gh/yuj940212-sketch/gate@b40c49762411d7e046c303bdca12227e2970d2f8/surge-ip-check/Taiwan_VPS_Panel.js, script-update-interval=86400
 
 [MITM]
 hostname = %APPEND% 4.ipwho.de, ipwho.de
 
 [Panel]
-IP Check = script-path=https://cdn.jsdelivr.net/gh/yuj940212-sketch/gate@b40c49762411d7e046c303bdca12227e2970d2f8/surge-ip-check/IP_Check_Panel.js, update-interval=600
-台湾 VPS = script-path=https://cdn.jsdelivr.net/gh/yuj940212-sketch/gate@b40c49762411d7e046c303bdca12227e2970d2f8/surge-ip-check/Taiwan_VPS_Panel.js, update-interval=600
+IP Check = script-name=IP Check Panel, title=IP Check, content=刷新中…, style=info, update-interval=300
+台湾 VPS = script-name=Taiwan VPS Panel, title=台湾 VPS, content=刷新中…, style=info, update-interval=300
