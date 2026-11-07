@@ -3,7 +3,7 @@
 // 显示: 当前出口 IP、出口地点、ISP、延迟、套餐与到期、节点端口. 点面板即刷新.
 var _start = Date.now();
 $httpClient.get(
-  { url: 'https://4.ipwho.de/json', policy: 'PROXY', timeout: 5 },
+  { url: 'https://4.ipwho.de/json', policy: '海外节点', timeout: 5 },
   function(err, resp, data) {
     if (err) {
       $done({ title: '台湾 VPS · 查询失败', content: '点一下重试', icon: 'exclamationmark.triangle', 'icon-color': '#FF9500' });

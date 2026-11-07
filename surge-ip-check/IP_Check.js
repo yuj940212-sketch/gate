@@ -3,10 +3,10 @@
 // 移植说明: Egern 脚本用的是 ctx.response / ctx.http.get / export default
 // Surge 不认这一套, 已按 Surge 的 $response / $httpClient / $task.fetch / $done 重写,
 // 纯函数部分(国家/城市中文翻译、IP纯净度解析)与原版一致.
-// 用法: 在 Surge 里先在 海外节点/PROXY 组里选好要测的节点, 再用浏览器访问
+// 用法: 在 Surge 里先在 海外节点 组里选好要测的节点, 再用浏览器访问
 // http://ipwho.de/json (双栈) 或 https://4.ipwho.de/json (仅 IPv4),
 // 返回的就是该节点的出口 IP 信息. 测速和纯净度默认关闭, 在模块参数里改成 开启 即可.
-// 参数(模块 argument): POLICY=PROXY&SHOW_SPEED_TEST=关闭&SPEED_TEST_PACKET=3&SPEED_TEST_TIMEOUT=5&SHOW_IPPURE=关闭
+// 参数(模块 argument): POLICY=海外节点&SHOW_SPEED_TEST=关闭&SPEED_TEST_PACKET=3&SPEED_TEST_TIMEOUT=5&SHOW_IPPURE=关闭
 
 const codeMap = { HK: '🇭🇰 香港', TW: '🇼🇸 台湾', SG: '🇸🇬 新加坡', JP: '🇯🇵 日本', KR: '🇰🇷 韩国', US: '🇺🇸 美国', DE: '🇩🇪 德国', GB: '🇬🇧 英国', NL: '🇳🇱 荷兰', FR: '🇫🇷 法国', CA: '🇨🇦 加拿大', AU: '🇦🇺 澳大利亚', TR: '🇹🇷 土耳其', MO: '🇲🇴 澳门', RU: '🇷🇺 俄罗斯' };
 
@@ -616,7 +616,7 @@ async function getIPPureInfoSurge(policy) {
 (async function main() {
   try {
     var args = parseArgument();
-    var policy = args.POLICY || 'PROXY';
+    var policy = args.POLICY || '海外节点';
     var ipResult = getIPInfoSurge();
     if (ipResult.passthrough) return $done({});
     var ipInfo = ipResult.ipInfo;
