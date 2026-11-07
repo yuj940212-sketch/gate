@@ -3,7 +3,7 @@
 #!system=ios
 
 [Script]
-Taiwan VPS Panel = type=generic, timeout=10, script-path=https://cdn.jsdelivr.net/gh/yuj940212-sketch/gate@6a03a2c1d894fa5870f02e72000db88e4820e5c6/surge-ip-check/Taiwan_VPS_Panel.js, script-update-interval=86400
+Taiwan VPS Panel = type=generic, timeout=10, script-path=https://cdn.jsdelivr.net/gh/yuj940212-sketch/gate@f660c174ee55217ff0b2f95a531412cc8b365702/surge-ip-check/Taiwan_VPS_Panel.js, script-update-interval=86400
 
 [Panel]
 台湾 VPS = script-name=Taiwan VPS Panel, title=台湾 VPS, content=刷新中…, style=info, update-interval=300
