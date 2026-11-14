@@ -18,7 +18,7 @@ encrypted-dns-follow-outbound-mode = false
 *.cn = server:{{{国内DNS}}}
 *.xn--fiqs8s = server:{{{国内DNS}}}
 #    再用 ChinaMax 国内域名表覆盖其余（110427 条，纯域名 DOMAIN-SET 格式）
-DOMAIN-SET:https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Surge/ChinaMax/ChinaMax_Domain.list = server:{{{国内DNS}}}
+DOMAIN-SET:https://raw.githubusercontent.com/yuj940212-sketch/gate/main/surge-modules/rules/ChinaMax_Domain.list = server:{{{国内DNS}}}
 
 [Rule]
 # ── 广告白名单 ────────────────────────────────────────────────────
@@ -35,6 +35,8 @@ DOMAIN-SUFFIX,appsflyer.com,{{{广告拦截}}}
 DOMAIN-SUFFIX,umeng.com,{{{广告拦截}}}
 
 # ── 广告域名表（290392 条）───────────────────────────────────────
-DOMAIN-SET,https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Surge/Advertising/Advertising_Domain.list,{{{广告拦截}}}
+DOMAIN-SET,https://raw.githubusercontent.com/yuj940212-sketch/gate/main/surge-modules/rules/Advertising_Domain_1.list,{{广告拦截}}
+DOMAIN-SET,https://raw.githubusercontent.com/yuj940212-sketch/gate/main/surge-modules/rules/Advertising_Domain_2.list,{{广告拦截}}
+DOMAIN-SET,https://raw.githubusercontent.com/yuj940212-sketch/gate/main/surge-modules/rules/Advertising_Domain_3.list,{{广告拦截}}
 # ── 追踪器域名表（39916 条）──────────────────────────────────────
-DOMAIN-SET,https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Surge/Privacy/Privacy_Domain.list,{{{广告拦截}}}
+DOMAIN-SET,https://raw.githubusercontent.com/yuj940212-sketch/gate/main/surge-modules/rules/Privacy_Domain.list,{{{广告拦截}}}
